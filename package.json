@@ -1,0 +1,217 @@
+{
+  "name": "flutter-mvp-scaffold",
+  "displayName": "flutter_mvp_scaffold",
+  "description": "Generate files for mvp pattern",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.56.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:flutter-mvp-scaffold.generateMvpScaffold"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "flutter-mvp-scaffold.generateMvpScaffold",
+        "title": "Flutter MVP Scaffold: Create scaffold"
+      }
+    ],
+    "configuration": {
+      "title": "FlutterMvp",
+      "properties": {
+        "flutterMvp.domain": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Domain of project"
+        },
+        "flutterMvp.extension": {
+          "type": "string",
+          "default": ".dart",
+          "markdownDescription": "Extension for files"
+        },
+        "flutterMvp.dataEntityPath": {
+          "type": "string",
+          "default": "/data/entities/",
+          "markdownDescription": "Path to `entity` classes"
+        },
+        "flutterMvp.dataEntityContent": {
+          "type": "object",
+          "default": "import 'package:json_annotation/json_annotation.dart';\npart '$name$_entity.g.dart';\n@JsonSerializable()\nclass $className$Entity {}",
+          "markdownDescription": "Path to `entity` classes"
+        },
+        "flutterMvp.dataEntitySuffix": {
+          "type": "string",
+          "default": "_entity",
+          "markdownDescription": "Suffix to `entity` classes"
+        },
+        "flutterMvp.dataRepositoryPath": {
+          "type": "string",
+          "default": "/data/repositories/",
+          "markdownDescription": "Path to `repository` classes"
+        },
+        "flutterMvp.dataRepositorySuffix": {
+          "type": "string",
+          "default": "_repository",
+          "markdownDescription": "Suffix to `repository` classes"
+        },
+        "flutterMvp.dataMapperPath": {
+          "type": "string",
+          "default": "/data/mapper/",
+          "markdownDescription": "Path to `mapper` classes"
+        },
+        "flutterMvp.dataMapperSuffix": {
+          "type": "string",
+          "default": "_mapper",
+          "markdownDescription": "Suffix to `mapper` classes"
+        },
+        "flutterMvp.domainModelPath": {
+          "type": "string",
+          "default": "/domain/models/",
+          "markdownDescription": "Path to `model` classes"
+        },
+        "flutterMvp.domainModelSuffix": {
+          "type": "string",
+          "default": "_model",
+          "markdownDescription": "Suffix to `model` classes"
+        },
+        "flutterMvp.domainServicePath": {
+          "type": "string",
+          "default": "/domain/services/",
+          "markdownDescription": "Path to `service` classes"
+        },
+        "flutterMvp.domainServiceSuffix": {
+          "type": "string",
+          "default": "_service",
+          "markdownDescription": "Suffix to `service` classes"
+        },
+        "flutterMvp.domainBlocPath": {
+          "type": "string",
+          "default": "/domain/blocs/",
+          "markdownDescription": "Path to `bloc` classes"
+        },
+        "flutterMvp.domainBlocSuffix": {
+          "type": "string",
+          "default": "_bloc",
+          "markdownDescription": "Suffix to `bloc` classes"
+        },
+        "flutterMvp.presentationScreenPath": {
+          "type": "string",
+          "default": "/presentation/screens/",
+          "markdownDescription": "Path to `screen` classes"
+        },
+        "flutterMvp.presentationScreenSuffix": {
+          "type": "string",
+          "default": "_screen",
+          "markdownDescription": "Suffix to `screen` classes"
+        },
+        "flutterMvp.presentationInjectorPath": {
+          "type": "string",
+          "default": "/presentation/injector/",
+          "markdownDescription": "Path to `injector` class"
+        },
+        "flutterMvp.entity.content": {
+          "type": "object",
+          "default": [
+            "import 'package:json_annotation/json_annotation.dart';\n",
+            " part '${1:name}_entity.g.dart';\n",
+            " @JsonSerializable()\n",
+            " class ${2:className}Entity {\n",
+            "",
+            "}"
+          ]
+        },
+        "flutterMvp.repository.content": {
+          "type": "object",
+          "default": [
+            "class ${2:className}Repository {}"
+          ]
+        },
+        "flutterMvp.mapper.content": {
+          "type": "object",
+          "default": [
+            "import 'package:${3:domain}${4:entityPath}${1:name}_entity.dart';\n",
+            "import 'package:${3:domain}${8:modelPath}${1:name}_model.dart';\n",
+            "class ${2:className}Mapper {\n",
+            " ${2:className} mapTo(${2:className}Entity from) {\n",
+            "   return ${2:className}();\n",
+            " }",
+            "}"
+          ]
+        },
+        "flutterMvp.model.content": {
+          "type": "object",
+          "default": [
+            "class ${2:className} {\n",
+            "}"
+          ]
+        },
+        "flutterMvp.service.content": {
+          "type": "object",
+          "default": [
+            "import 'package:${3:domain}${5:repositoryPath}${1:name}_repository.dart';\n",
+            "class ${2:className}Service {\n",
+            " ${2:className}Repository _${1:name}Repository = ${2:className}Repository();\n",
+            "}"
+          ]
+        },
+        "flutterMvp.bloc.content": {
+          "type": "object",
+          "default": [
+            "import 'dart:async';\n",
+            "import 'package:${3:domain}${7:blocPath}bloc_interface.dart';",
+            "import 'package:${3:domain}${6:servicePath}${1:name}_service.dart';\n",
+            "class ${2:className}Bloc implements IBloc {\n",
+            " ${2:className}Service _${1:name}Service = ${2:className}Service();\n",
+            "   @override\n",
+            "   dispose() {}\n",
+            "}"
+          ]
+        },
+        "flutterMvp.screen.content": {
+          "type": "object",
+          "default": [
+            "import 'package:flutter/material.dart';",
+            "class ${2:className}Screen extends StatefulWidget {\n",
+            "  ${2:className}Screen({Key? key}) : super(key: key);\n",
+            "  @override\n",
+            "  _${2:className}ScreenState createState() => _${2:className}ScreenState();\n",
+            "}\n",
+            "class _${2:className}ScreenState extends State<${2:className}Screen> {\n",
+            "  @override\n",
+            "  Widget build(BuildContext context) {\n",
+            "    return Container(\n",
+            "       child: Container()\n",
+            "    );\n",
+            "  }\n",
+            "}"
+          ]
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.3",
+    "@types/mocha": "^8.0.4",
+    "@types/node": "^12.11.7",
+    "@types/vscode": "^1.56.0",
+    "@typescript-eslint/eslint-plugin": "^4.14.1",
+    "@typescript-eslint/parser": "^4.14.1",
+    "eslint": "^7.19.0",
+    "glob": "^7.1.6",
+    "mocha": "^8.2.1",
+    "typescript": "^4.1.3",
+    "vscode-test": "^1.5.0"
+  }
+}
